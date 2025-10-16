@@ -1,5 +1,9 @@
 {
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  ],
+  "env": {
+    "VITE_USE_MOCK": "true"
+  },
+  "buildCommand": "npm run build"
 }
