@@ -1,0 +1,22 @@
+{% if jobs %}
+<table>
+    <thead>
+        <tr>
+            <th>Filename</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Retry Count</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for job in jobs %}
+            {% include "jobs/partials/job_row.html" with job=job %}
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="empty-state">
+    <p>No jobs yet. Upload some files to get started!</p>
+</div>
+{% endif %}

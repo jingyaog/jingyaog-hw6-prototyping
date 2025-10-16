@@ -1,0 +1,33 @@
+<tr id="job-row-{{ job.id }}">
+    <td>{{ job.filename }}</td>
+    <td>
+        <span class="status status-{{ job.status }}">{{ job.get_status_display }}</span>
+        {% if job.error_message %}
+            <div class="error-message">{{ job.error_message }}</div>
+        {% endif %}
+    </td>
+    <td>{{ job.created_at|date:"Y-m-d H:i:s" }}</td>
+    <td>{{ job.retry_count }}</td>
+    <td>
+        <div class="action-buttons">
+            {% if job.can_retry %}
+                <button
+                    class="btn-retry"
+                    hx-post="/jobs/{{ job.id }}/retry"
+                    hx-target="#job-row-{{ job.id }}"
+                    hx-swap="outerHTML">
+                    Retry
+                </button>
+            {% endif %}
+            {% if job.can_cancel %}
+                <button
+                    class="btn-cancel"
+                    hx-post="/jobs/{{ job.id }}/cancel"
+                    hx-target="#job-row-{{ job.id }}"
+                    hx-swap="outerHTML">
+                    Cancel
+                </button>
+            {% endif %}
+        </div>
+    </td>
+</tr>

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>File Upload Job Manager</h1>
+
+<div class="upload-section">
+    <h2>Upload Files</h2>
+    <form
+        hx-post="/jobs"
+        hx-target="#job-table-container"
+        hx-encoding="multipart/form-data"
+        hx-indicator="#upload-indicator">
+        {% csrf_token %}
+        <div class="file-input-wrapper">
+            <input type="file" name="files" multiple required>
+        </div>
+        <button type="submit">
+            Upload Files
+            <span id="upload-indicator" class="htmx-indicator" style="display:none;">⏳ Uploading...</span>
+        </button>
+    </form>
+</div>
+
+<div class="jobs-section">
+    <h2>Job Status</h2>
+    <div id="job-table-container" hx-get="/jobs/table" hx-trigger="every 2s">
+        {% include "jobs/partials/job_table.html" %}
+    </div>
+</div>
+{% endblock %}
